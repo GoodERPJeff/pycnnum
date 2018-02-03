@@ -266,6 +266,10 @@ def num2cn(num, counting_type = COUNTING_TYPES[1],
   elif isinstance(num, float) :
     int_value = int(num)
     dec_value = num - int(num)
+    # 51840.0 - int(51840.0) = 7.27595761418e-12, make the line 277 raise error
+    # invalid literal for int() with base 10:'e'
+    if dec_value < 0.001:
+        dec_value = 0.0
 
   int_string = str(int_value)
   dec_string = str(dec_value).split('.')[-1] if dec_value else ''
